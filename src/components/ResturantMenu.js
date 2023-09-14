@@ -5,10 +5,12 @@ import { useState } from "react";
 
 const ResturantMenu = () => {
   const [topList, settopList] = useState([apiData])
+  console.log("initial:", topList)
 
   function click() {
-    const apiData = apiData.filter(checkTop);
-    settopList(apiData);
+    const topfilter = apiData.filter(checkTop);
+    settopList(topfilter);
+    console.log("later:", topList)
   }
 
   function checkTop(apiData) {
