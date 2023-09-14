@@ -23,7 +23,7 @@ const ResturantMenu = () => {
         <h3>Top Resturants</h3>
         <button
           className="topB"
-          onClick={click()}
+          //onClick={click()}
         >
           Top Resturants
         </button>
