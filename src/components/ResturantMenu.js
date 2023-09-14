@@ -4,18 +4,18 @@ import { useState } from "react";
 
 
 const ResturantMenu = () => {
-  const [topList, settopList] = useState(apiData)
-  console.log("initial:", topList)
+  // const [topList, settopList] = useState(apiData)
+  // console.log("initial:", topList)
 
-  function click() {
-    const topfilter = apiData.filter(checkTop);
-    settopList(topfilter);
-    console.log("later:", topList)
-  }
+  // function click() {
+  //   const topfilter = apiData.filter(checkTop);
+  //   settopList(topfilter);
+  //   console.log("later:", topList)
+  // }
 
-  function checkTop(apiData) {
-    return apiData?.data?.info?.avgRating > 4;
-  }
+  // function checkTop(apiData) {
+  //   return apiData?.data?.info?.avgRating > 4;
+  // }
 
   return (
     <div>
