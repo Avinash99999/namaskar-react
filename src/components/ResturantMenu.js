@@ -4,7 +4,7 @@ import { useState } from "react";
 
 
 const ResturantMenu = () => {
-  const [topList, settopList] = useState([apiData])
+  const [topList, settopList] = useState(apiData)
   console.log("initial:", topList)
 
   function click() {
