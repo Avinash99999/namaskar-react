@@ -1,4 +1,4 @@
-import ResturantCard from "./Resturantcard";
+import ResturantCard from "./ResturantCard"
 import { apiData } from "../utils/mockdata";
 import { useState } from "react";
 
@@ -21,7 +21,7 @@ const ResturantMenu = () => {
       </div>
       <div className="res-container">
         {apiData.map((restaurant) => (
-          <ResturantCard key={restaurant.id} receData={restaurant} />
+          <ResturantCard  receData={restaurant} />
         ))}
       </div>
     </div>
