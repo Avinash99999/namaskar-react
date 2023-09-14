@@ -1,5 +1,5 @@
 import ResturantCard from "./ResturantCard"
-import { apiData, apiData } from "../utils/mockdata";
+import { apiData } from "../utils/mockdata";
 import { useState } from "react";
 
 
