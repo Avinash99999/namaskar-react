@@ -29,7 +29,7 @@ const ResturantMenu = () => {
         </button>
       </div>
       <div className="res-container">
-        {topList.map((restaurant) => (
+        {apiData.map((restaurant) => (
           <ResturantCard receData={restaurant} />
         ))}
       </div>
