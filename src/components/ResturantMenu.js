@@ -2,30 +2,29 @@ import ResturantCard from "./ResturantCard"
 import { apiData } from "../utils/mockdata";
 import { useState } from "react";
 
-function click() {
-  console.log("button is working")
- }
 
 const ResturantMenu = () => {
   const [topList, settopList] = useState([apiData])
+  const [topFlag, settopFlag] = useState(false);
+
+  function click() {
+    settopFlag(true);
+  }
+
+
   return (
     <div>
       <div className="topres">
         <h3>Top Resturants</h3>
         <button
           className="topB"
-          onClick={() => {
-            console.log("aviiiiiiii");
-          }}
+          onClick={click()}
         >
           Top Resturants
         </button>
-        <button onClick={click}>
-          click here
-        </button>
       </div>
       <div className="res-container">
-        {apiData.map((restaurant) => (
+        { topFlag === true ? alert("logig working") : apiData.map((restaurant) => (
           <ResturantCard receData={restaurant} />
         ))}
       </div>
