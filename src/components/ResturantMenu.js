@@ -1,16 +1,19 @@
 import ResturantCard from "./ResturantCard"
-import { apiData } from "../utils/mockdata";
+import { apiData, apiData } from "../utils/mockdata";
 import { useState } from "react";
 
 
 const ResturantMenu = () => {
   const [topList, settopList] = useState([apiData])
-  const [topFlag, settopFlag] = useState(false);
 
   function click() {
-    settopFlag(true);
+    const apiData = apiData.filter(checkTop);
+    settopList(apiData);
   }
 
+  function checkTop(apiData) {
+    return apiData?.data?.info?.avgRating > 4;
+  }
 
   return (
     <div>
@@ -24,7 +27,7 @@ const ResturantMenu = () => {
         </button>
       </div>
       <div className="res-container">
-        { topFlag === true ? alert("logig working") : apiData.map((restaurant) => (
+        {topList.map((restaurant) => (
           <ResturantCard receData={restaurant} />
         ))}
       </div>
