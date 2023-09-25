@@ -1,23 +1,23 @@
-#headdiv{
+#headdiv {
     display: flex;
     border: 2px solid black;
 }
 
-.logo{
+.logo {
     height: 100px;
     width: 100px;
 }
 
-.nav-items{
+.nav-items {
     padding: 0px 20px;
 }
 
-.nav-items > ul{
+.nav-items>ul {
     display: flex;
     font-size: 30px;
 }
 
-.nav-items > ul > li{
+.nav-items>ul>li {
     margin: 10px;
     padding: 10px;
     list-style-type: none;
@@ -36,21 +36,21 @@
     cursor: pointer;
 }
 
-.search{
+.search {
     padding: 10px;
 }
 
-.resimg{
+.resimg {
     width: 200px;
     height: 200px;
 }
 
-.res-container{
+.res-container {
     display: flex;
     flex-wrap: wrap;
 }
 
-.topB{
+.topB {
     background-color: darkgoldenrod;
     color: darkblue;
     font-size: xx-small;
@@ -59,3 +59,40 @@
     border: 2px solid rgb(107, 8, 236);
     border-radius: 2px;
 }
+
+.shimmer-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.shimmer-card {
+    padding: 5px;
+    width: 200px;
+    height: 400px;
+    background-color: #f0f0f0;
+    margin: 5px;
+}
+
+.shimmerB {
+    background-color: #f0f0f0;
+    height: 20px;
+    width: 100px;
+    /* border: 2px solid rgb(107, 8, 236); */
+    border-radius: 2px;
+}
+
+.loginbtn {
+    height: 20px;
+    width: 100px;
+    border: 2px solid black;
+    border-radius: 2px;
+    background-color: chartreuse;
+}
+
+.searchResturant {
+    display: inline;
+}
+
+/* .ResturantMenuContainer{
+    display: flex;
+} */

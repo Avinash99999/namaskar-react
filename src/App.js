@@ -8,7 +8,6 @@ const AppRender = () => {
   return (
     <div>
       <Header />
-      <Body />
       <ResturantMenu />
     </div>
   );
