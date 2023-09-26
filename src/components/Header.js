@@ -1,17 +1,18 @@
 import { Logo_Header } from "../utils/constant";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   let [btnValue, setbtnValue] = useState("Login");
   return (
     <div id="headdiv">
-      <img src={Logo_Header} className="logo"></img>
+      <Link to={"/"}><img src={Logo_Header} className="logo"></img></Link>
       <div className="nav-items">
         <ul>
-          <li>order</li>
-          <li>services</li>
-          <li>resturants</li>
-          <li>cart</li>
+          <li><Link to={"/"}>Home</Link></li>
+          <li><Link to={"/resturants"}>Resturants</Link></li>
+          <li><Link to={"/about"}>About</Link></li>
+          <li><Link to={"/contact"}>Contact</Link></li>
           <button
             className="loginbtn"
             onClick={() =>
