@@ -1,30 +1,43 @@
 import { useState, useEffect } from "react";
 import { Menu_Image, Resturant_API } from "../utils/constant";
 import { useParams } from "react-router-dom";
+import CategoryDetails from "./CategoryDetails";
 
 const ResturantDetails = () => {
   const [ResturantData, setResturantData] = useState([]);
   const [ResturantMenu, setResturantMenu] = useState([]);
+  const [CategoryapiData, setCategoryapiData] = useState([]);
 
   const params = useParams();
   useEffect(() => {
     fetchDetails();
   }, []);
 
-  console.log("Resturants Menu:", ResturantMenu);
-  console.log("Resturant Details:", ResturantData);
+  // console.log("Resturants Menu:", ResturantMenu);
+  // console.log("Resturant Details:", ResturantData);
   const fetchDetails = async () => {
     const URL = Resturant_API + params.resid;
-    console.log("URL:", URL)
+
     const result = await fetch(URL);
 
-    console.log("result:", result)
     const json = await result.json();
+
+    // console.log(json);
 
     //Optional Chaining
     const menuData =
       json?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
         ?.card?.itemCards;
+
+    //Fetching Data Acc to Category
+    const foodCategory =
+      json?.data?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+        (item) =>
+          item?.card?.card?.["@type"] ===
+          "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+      );
+
+    setCategoryapiData(foodCategory);
 
     const ResturantData = json?.data?.cards[0].card?.card?.info;
     //Fetching Resturant Details from json
@@ -38,69 +51,23 @@ const ResturantDetails = () => {
     //Fetching Menu of Resturants from json
     setResturantMenu(allResturantsMenu);
   };
+  // console.log("data:", ResturantData);
   return (
-    <div>
-      <div className="ResturantDetailsbox">
-        <table>
-          <tr>
-            <h1>{ResturantData.name}</h1>
-          </tr>
-          <tr>
-            <th>{ResturantData.city}</th>
-            <th>{ResturantData.areaName}</th>
-            <th>{ResturantData.locality}</th>
-          </tr>
-          <tr>
-            <th>{"Open till 12am"}</th>
-            <th>
-              {ResturantData?.availability?.opened === "true"
-                ? "Closed"
-                : "Open"}
-            </th>
-          </tr>
-          <tr>
-            <th>Cuisines: {ResturantData?.cuisines?.toString()}</th>
-          </tr>
-          <tr>
-            <th>Delivery : {ResturantData?.feeDetails?.message}</th>
-          </tr>
-          <tr>
-            <th>DeliveryTime : {ResturantData?.sla?.deliveryTime} mins</th>
-          </tr>
-          <tr>
-            {ResturantData?.aggregatedDiscountInfo?.descriptionList.map(
-              (data) => (
-                <th>Offers: {data.meta}</th>
-              )
-            )}
-          </tr>
-          <tr>
-            <th>Ratings : {ResturantData?.totalRatings}</th>
-            <th>{ResturantData?.totalRatingsString}</th>
-          </tr>
-        </table>
-      </div>
-      <h3>Menu</h3>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Category</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Meal</th>
-        </tr>
-        {ResturantMenu.map((restaurant) => (
-          <tr>
-            <td>{restaurant.name}</td>
-            <td>{restaurant.category}</td>
-            <td>{restaurant.description}</td>
-            <td>Rs.{restaurant.price / 100}</td>
-            <td>
-              <img src={Menu_Image + restaurant.imageId}></img>
-            </td>
-          </tr>
-        ))}
-      </table>
+    <div className="bg-teal-500">
+      <h3 className="text-lg font-bold m-4 shadow-lg text-center">
+        {ResturantData?.name}
+      </h3>
+      <h3 className="text-m font-bold m-4 text-center">
+        {ResturantData?.areaName} | {ResturantData?.cuisines?.join(", ")} |{" "}
+        {ResturantData?.avgRating} ⭐
+      </h3>
+      {ResturantData?.aggregatedDiscountInfo?.descriptionList.map((item) => (
+        <h3 className="text-m font-bold m-4 text-center">🎉 {item.meta}</h3>
+      ))}
+
+      {CategoryapiData.map((category) =>
+        <CategoryDetails data={category?.card?.card} />
+      )}
     </div>
   );
 };

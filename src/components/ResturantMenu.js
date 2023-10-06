@@ -1,4 +1,4 @@
-import ResturantCard from "./Resturantcard";
+import ResturantCard, { withPromotedTagg } from "./Resturantcard";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ const ResturantMenu = () => {
   const [topList, settopList] = useState([]);
   const [searchFlag, setsearchFlag] = useState(false);
   const [seachText, setsearchText] = useState("");
+  const ResturantwithPromoted = withPromotedTagg(ResturantCard);
 
   useEffect(() => {
     fetchData();
@@ -24,7 +25,7 @@ const ResturantMenu = () => {
       json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants;
 
-    console.log("vales:", value);
+    // console.log("vales:", value);
     let allResturants = [];
     for (let i = 0; i < value.length; i++) {
       const data = value[i]?.info;
@@ -45,49 +46,63 @@ const ResturantMenu = () => {
       <Shimmer />
     </div>
   ) : (
-    <div className="ResturantMenuContainer">
-      {/* SEARCH RESTURANTS */}
-      <div className="searchResturant">
-        <input
-          type="text"
-          value={seachText}
-          onChange={(e) => {
-            setsearchText(e.target.value);
-          }}
-        ></input>
-        <button
-          onClick={() => {
-            const searchList = actualList.filter(
-              (res) =>
-                res?.name.toLowerCase().includes(seachText.toLowerCase()) ||
-                res?.cuisines
-                  .join(", ")
-                  .toLowerCase()
-                  .includes(seachText.toLowerCase())
-            );
-            settopList(searchList);
-            if (searchList.length === 0) setsearchFlag(true);
-          }}
-        >
-          Search
-        </button>
+    <div className="">
+      <div className="flex p-10">
+        {/* SEARCH RESTURANTS */}
+        <div>
+          <input
+            className="border border-solid border-black rounded py-1"
+            type="text"
+            value={seachText}
+            onChange={(e) => {
+              setsearchText(e.target.value);
+            }}
+          ></input>
+          <button
+            className="bg-sky-600 hover:bg-blue-700 text-white font-bold py-1  px-4 rounded ml-4"
+            onClick={() => {
+              const searchList = actualList.filter(
+                (res) =>
+                  res?.name.toLowerCase().includes(seachText.toLowerCase()) ||
+                  res?.cuisines
+                    .join(", ")
+                    .toLowerCase()
+                    .includes(seachText.toLowerCase())
+              );
+              settopList(searchList);
+              if (searchList.length === 0) setsearchFlag(true);
+            }}
+          >
+            Search
+          </button>
+        </div>
+
+        {/* TOP RESTURANTS */}
+        <div>
+          <button
+            // className="bg-pink-200 ml-12"
+            className="bg-sky-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded ml-10"
+            onClick={() => {
+              const filteredList = actualList.filter(
+                (res) => res?.avgRating > 4
+              );
+              settopList(filteredList);
+            }}
+          >
+            Top Resturants
+          </button>
+        </div>
       </div>
 
-      {/* TOP RESTURANTS */}
-      <div className="topres">
-        <button
-          className="topB"
-          onClick={() => {
-            const filteredList = actualList.filter((res) => res?.avgRating > 4);
-            settopList(filteredList);
-          }}
-        >
-          Top Resturants
-        </button>
-      </div>
-      <div className="res-container">
+      <div className="flex flex-wrap justify-evenly">
         {topList.map((restaurant) => (
-          <Link to={"/resturant/" + restaurant.id}><ResturantCard receData={restaurant} /></Link>
+          <Link to={"/resturant/" + restaurant.id}>
+            {restaurant.avgRating < 4.5 ? (
+              <ResturantwithPromoted receData={restaurant} />
+            ) : (
+              <ResturantCard receData={restaurant} />
+            )}
+          </Link>
         ))}
       </div>
     </div>
