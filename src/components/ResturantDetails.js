@@ -7,6 +7,8 @@ const ResturantDetails = () => {
   const [ResturantData, setResturantData] = useState([]);
   const [ResturantMenu, setResturantMenu] = useState([]);
   const [CategoryapiData, setCategoryapiData] = useState([]);
+  const [showItemCategory, setshowItemCategory] = useState(false);
+  const [takeIndex, settakeIndex] = useState(null);
 
   const params = useParams();
   useEffect(() => {
@@ -51,7 +53,7 @@ const ResturantDetails = () => {
     //Fetching Menu of Resturants from json
     setResturantMenu(allResturantsMenu);
   };
-  // console.log("data:", ResturantData);
+  // console.log("data:", CategoryapiData);
   return (
     <div className="bg-teal-500">
       <h3 className="text-lg font-bold m-4 shadow-lg text-center">
@@ -65,9 +67,15 @@ const ResturantDetails = () => {
         <h3 className="text-m font-bold m-4 text-center">🎉 {item.meta}</h3>
       ))}
 
-      {CategoryapiData.map((category) =>
-        <CategoryDetails data={category?.card?.card} />
-      )}
+      {CategoryapiData.map((category, index) => (
+        <CategoryDetails
+          data={category?.card?.card}
+          index={index}
+          showItemCategory={index === takeIndex ? true : false}
+          acceptIndex={() => settakeIndex(index)}
+          key={category?.card?.card?.title}
+        />
+      ))}
     </div>
   );
 };

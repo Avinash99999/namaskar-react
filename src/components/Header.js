@@ -1,11 +1,16 @@
 import { Logo_Header, issac_img } from "../utils/constant";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import useContextExample from "../utils/useContextExample";
 
 const Header = () => {
   let [btnValue, setbtnValue] = useState("Login");
   const checkUserStatus = useOnlineStatus();
+  
+  //useContext Hook Use - it is used to reduce prop drilling
+  const data = useContext(useContextExample)
+  // console.log("user:", data.username)
 
   return (
     <div className="flex justify-between bg-pink-200 h-24 shadow-sm">
@@ -27,6 +32,7 @@ const Header = () => {
             <Link to={"/contact"}>Contact</Link>
           </li>
           <li className="m-1 px-10">Online Status: {checkUserStatus === true ? "😎" : "🤬"}</li>
+          <li className="m-1 px-10 font-mono">User: {data.username}</li>
           {/* <button
             className="loginbtn"
             onClick={() =>

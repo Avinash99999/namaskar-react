@@ -2,26 +2,35 @@ import React from "react";
 import OneMore from "./OneMore";
 
 class ClassComp extends React.Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props){
-        super(props)
+    console.log("Parent constructor");
+  }
 
-        console.log("Parent constructor")
-    }
+  componentDidMount() {
+    console.log("Parent CDM");
+  }
 
-    componentDidMount(){
-      console.log("Parent CDM")
-    }
-
-    componentWillUnmount(){
-      console.log("Parent Unmount")
-    }
+  componentWillUnmount() {
+    console.log("Parent Unmount");
+  }
   render() {
-    console.log("Parent Render")
+    console.log("Parent Render");
     return (
       <div>
-        <OneMore name={"Avinash Patil"} age={26} location={"Vasai"} job={"MERN Stack Developer"}/>
-        <OneMore name={"Shubhangi Patil"} age={27} location={"Israel"} job={"Micro Biologiest"}/>
+        <OneMore
+          name={"Avinash Patil"}
+          age={26}
+          location={"Vasai"}
+          job={"MERN Stack Developer"}
+        />
+        <OneMore
+          name={"Shubhangi Patil"}
+          age={27}
+          location={"Israel"}
+          job={"Micro Biologiest"}
+        />
       </div>
     );
   }

@@ -15,11 +15,15 @@ const ResturantMenu = () => {
   }, []);
 
   const fetchData = async () => {
+
     const result = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.3702522&lng=72.8291995&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.3702522&lng=72.8291995&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING" //--Mumbai
+      // "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5204303&lng=73.8567437&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING" //Pune
     );
 
     const json = await result.json();
+
+    // console.log("json", json);
     //Optional Chaining
     const value =
       json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
@@ -98,9 +102,9 @@ const ResturantMenu = () => {
         {topList.map((restaurant) => (
           <Link to={"/resturant/" + restaurant.id}>
             {restaurant.avgRating < 4.5 ? (
-              <ResturantwithPromoted receData={restaurant} />
+              <ResturantwithPromoted receData={restaurant} key={restaurant.id} />
             ) : (
-              <ResturantCard receData={restaurant} />
+              <ResturantCard receData={restaurant} key={restaurant.id}/>
             )}
           </Link>
         ))}

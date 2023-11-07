@@ -1,10 +1,7 @@
 import { CDN_Link } from "../utils/constant";
 
 const ItemCategory = ({ item }) => {
- 
-  checkWorking = () => {
-    console.log('working')
-  }
+
   return (
     <div>
       {item.map((item) => (
